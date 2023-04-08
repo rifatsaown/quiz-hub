@@ -4,9 +4,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Blog from "./Components/Blog";
 import Home from "./Components/Home";
+import Quiz from "./Components/Quiz";
 import Statistic from "./Components/Statistic";
 import "./index.css";
-import Quiz from "./Components/Quiz";
 
 const router = createBrowserRouter([
   {
@@ -20,14 +20,21 @@ const router = createBrowserRouter([
           await fetch("https://openapi.programming-hero.com/api/quiz/"),
       },
       { path: "/home", element: <Home /> },
-      { path: "/statistic", element: <Statistic /> },
+      {
+        path: "/statistic",
+        element: <Statistic />,
+        loader: async () =>
+          await fetch("https://openapi.programming-hero.com/api/quiz/"),
+      },
       { path: "/blog", element: <Blog /> },
       {
         path: "/quiz/:id",
         element: <Quiz />,
         loader: async ({ params }) =>
-          await fetch(`https://openapi.programming-hero.com/api/quiz/${params.id}`),
-      }
+          await fetch(
+            `https://openapi.programming-hero.com/api/quiz/${params.id}`
+          ),
+      },
     ],
   },
 ]);
